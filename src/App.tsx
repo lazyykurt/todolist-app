@@ -1,6 +1,6 @@
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
-import TodoList from './TodoList';
+import TodoList from './components/TodoList/TodoList';
 
 function App() {
   return (

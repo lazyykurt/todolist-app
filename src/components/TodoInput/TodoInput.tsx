@@ -1,5 +1,6 @@
 import { Button, Input, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import './TodoInput.css';
 
 interface TodoInputProps {
   value: string;
@@ -9,7 +10,7 @@ interface TodoInputProps {
 
 export default function TodoInput({ value, onChange, onAdd }: TodoInputProps) {
   return (
-    <Space.Compact style={{ width: '100%', marginBottom: 24 }}>
+    <Space.Compact className="todo-input">
       <Input
         placeholder="输入待办事项..."
         value={value}

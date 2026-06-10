@@ -1,6 +1,7 @@
 import { Button, Checkbox, Input, List, Popconfirm, Typography } from 'antd';
 import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import type { Todo } from '../types';
+import type { Todo } from '../../types';
+import './TodoItem.css';
 
 const { Text } = Typography;
 
@@ -77,11 +78,9 @@ export default function TodoItem({
             />
           ) : (
             <Text
+              className="todo-item-text"
               delete={todo.completed}
               type={todo.completed ? 'secondary' : undefined}
-              style={{
-                textDecoration: todo.completed ? 'line-through' : 'none',
-              }}
             >
               {todo.text}
             </Text>

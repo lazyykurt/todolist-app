@@ -1,0 +1,12 @@
+.todo-list-card {
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.todo-list-card .ant-card-body {
+  padding: 24px;
+}
+
+.todo-list-title {
+  text-align: center;
+}

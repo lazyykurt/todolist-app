@@ -1,4 +1,5 @@
 import { Tag, Typography } from 'antd';
+import './TodoStats.css';
 
 const { Text } = Typography;
 
@@ -9,7 +10,7 @@ interface TodoStatsProps {
 
 export default function TodoStats({ totalCount, completedCount }: TodoStatsProps) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div className="todo-stats">
       <Text type="secondary">
         共 {totalCount} 项，已完成 {completedCount} 项
       </Text>

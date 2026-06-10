@@ -1,11 +1,12 @@
 import { useReducer, useState } from 'react';
 import { Card, List, Typography, Empty, Divider } from 'antd';
-import { todoReducer, initialTodos } from './reducer';
-import TodoInput from './components/TodoInput';
-import TodoItem from './components/TodoItem';
-import TodoStats from './components/TodoStats';
+import { todoReducer, initialTodos } from '../../reducer';
+import TodoInput from '../TodoInput/TodoInput';
+import TodoItem from '../TodoItem/TodoItem';
+import TodoStats from '../TodoStats/TodoStats';
+import './TodoList.css';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 export default function TodoList() {
   const [todos, dispatch] = useReducer(todoReducer, initialTodos);
@@ -51,8 +52,8 @@ export default function TodoList() {
   const totalCount = todos.length;
 
   return (
-    <Card style={{ maxWidth: 600, margin: '40px auto', padding: 24 }}>
-      <Title level={2} style={{ textAlign: 'center' }}>
+    <Card className="todo-list-card">
+      <Title level={2} className="todo-list-title">
         TodoList
       </Title>
 
