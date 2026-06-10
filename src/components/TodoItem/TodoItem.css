@@ -1,0 +1,7 @@
+.todo-item-text {
+  text-decoration: none;
+}
+
+.todo-item-text.ant-typography-delete {
+  text-decoration: line-through;
+}
