@@ -1,19 +1,9 @@
 import { useReducer, useState } from 'react';
-import {
-  Card,
-  Input,
-  Button,
-  List,
-  Checkbox,
-  Typography,
-  Space,
-  Popconfirm,
-  Empty,
-  Tag,
-  Divider,
-} from 'antd';
-import { PlusOutlined, DeleteOutlined, EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { Card, List, Typography, Empty, Divider } from 'antd';
 import { todoReducer, initialTodos } from './reducer';
+import TodoInput from './components/TodoInput';
+import TodoItem from './components/TodoItem';
+import TodoStats from './components/TodoStats';
 
 const { Title, Text } = Typography;
 
@@ -66,17 +56,7 @@ export default function TodoList() {
         TodoList
       </Title>
 
-      <Space.Compact style={{ width: '100%', marginBottom: 24 }}>
-        <Input
-          placeholder="输入待办事项..."
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onPressEnter={handleAdd}
-        />
-        <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
-          添加
-        </Button>
-      </Space.Compact>
+      <TodoInput value={inputValue} onChange={setInputValue} onAdd={handleAdd} />
 
       <Divider />
 
@@ -86,86 +66,24 @@ export default function TodoList() {
         <List
           dataSource={todos}
           renderItem={(todo) => (
-            <List.Item
-              actions={
-                editingId === todo.id
-                  ? [
-                      <Button
-                        type="text"
-                        icon={<CheckOutlined />}
-                        onClick={confirmEdit}
-                        key="save"
-                      />,
-                      <Button
-                        type="text"
-                        icon={<CloseOutlined />}
-                        onClick={cancelEdit}
-                        key="cancel"
-                      />,
-                    ]
-                  : [
-                      <Button
-                        type="text"
-                        icon={<EditOutlined />}
-                        onClick={() => startEdit(todo.id, todo.text)}
-                        key="edit"
-                      />,
-                      <Popconfirm
-                        title="确认删除"
-                        description="确定要删除这条待办吗？"
-                        onConfirm={() => handleDelete(todo.id)}
-                        okText="删除"
-                        cancelText="取消"
-                        key="delete"
-                      >
-                        <Button type="text" danger icon={<DeleteOutlined />} />
-                      </Popconfirm>,
-                    ]
-              }
-            >
-              <List.Item.Meta
-                avatar={
-                  <Checkbox
-                    checked={todo.completed}
-                    onChange={() => handleToggle(todo.id)}
-                  />
-                }
-                title={
-                  editingId === todo.id ? (
-                    <Input
-                      value={editValue}
-                      onChange={(e) => setEditValue(e.target.value)}
-                      onPressEnter={confirmEdit}
-                      autoFocus
-                    />
-                  ) : (
-                    <Text
-                      delete={todo.completed}
-                      type={todo.completed ? 'secondary' : undefined}
-                      style={{
-                        textDecoration: todo.completed ? 'line-through' : 'none',
-                      }}
-                    >
-                      {todo.text}
-                    </Text>
-                  )
-                }
-              />
-            </List.Item>
+            <TodoItem
+              todo={todo}
+              editing={editingId === todo.id}
+              editValue={editValue}
+              onToggle={handleToggle}
+              onStartEdit={startEdit}
+              onEditValueChange={setEditValue}
+              onConfirmEdit={confirmEdit}
+              onCancelEdit={cancelEdit}
+              onDelete={handleDelete}
+            />
           )}
         />
       )}
 
       <Divider />
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text type="secondary">
-          共 {totalCount} 项，已完成 {completedCount} 项
-        </Text>
-        {completedCount === totalCount && totalCount > 0 && (
-          <Tag color="success">全部完成！</Tag>
-        )}
-      </div>
+      <TodoStats totalCount={totalCount} completedCount={completedCount} />
     </Card>
   );
 }
